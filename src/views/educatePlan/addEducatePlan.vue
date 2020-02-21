@@ -82,7 +82,7 @@ export default {
         message: 'cancel!',
         type: 'warning'
       })
-      this.$router.push({path: '/educatePlan'})
+      this.$router.go(-1);
     },
     getNowDate() {
       var date = new Date();
