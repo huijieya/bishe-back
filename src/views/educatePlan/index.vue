@@ -2,36 +2,40 @@
   <div>
     <el-button class="addbtn" type="primary" @click="addPlan">增加培养方案</el-button>
     <el-table
-      :data="tableData"
+      :data="planData"
       border
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="一、专业培养目标和培养要求">
-              <span>{{ props.row.name }}</span>
-            </el-form-item>
-            <el-form-item label="二、专业培养特色">
-              <span>{{ props.row.shop }}</span>
-            </el-form-item>
-            <el-form-item label="三、主干课程">
-              <span>{{ props.row.id }}</span>
-            </el-form-item>
-            <el-form-item label="四、学制">
-              <span>{{ props.row.shopId }}</span>
-            </el-form-item>
-            <el-form-item label="五、毕业学分要求">
-              <span>{{ props.row.category }}</span>
-            </el-form-item>
-            <el-form-item label="六、学位授予">
-              <span>{{ props.row.address }}</span>
-            </el-form-item>
-          </el-form>
+          <el-collapse accordion>
+            <el-collapse-item :title="props.row.trainGoal" >
+              <div>{{ props.row.trainGoalIntroduce }}</div>
+            </el-collapse-item>
+            <el-collapse-item :title="props.row.trainSpecial">
+              <div>{{ props.row.trainSpecialIntroduce }}</div>
+            </el-collapse-item>
+            <el-collapse-item :title="props.row.mainCourse">
+              <div>{{ props.row.mainCourseIntroduce }}</div>
+            </el-collapse-item>
+            <el-collapse-item :title="props.row.educationalSystem">
+              <div>{{ props.row.educationalSystemDetail }}</div>
+            </el-collapse-item>
+            <el-collapse-item :title="props.row.creditRequirment">
+              <div>{{ props.row.creditRequirementIntroduce }}</div>
+            </el-collapse-item>
+            <el-collapse-item :title="props.row.conferDegree">
+              <div>{{ props.row.creditRequirementIntroduce }}</div>
+            </el-collapse-item>
+          </el-collapse>
         </template>
       </el-table-column>
       <el-table-column
         label="年级"
         prop="grade">
+      </el-table-column>
+      <el-table-column
+        label="更新时间"
+        prop="updateTime">
       </el-table-column>
       <el-table-column label="操作">
       <template slot-scope="scope">
@@ -49,26 +53,25 @@
 </template>
 
 <script>
-import { addTrainProgram, findTrainProgramByGrade } from '@/api/educatePlan'
+import { initTrainProgramByGrade, addTrainProgram, findTrainProgramByGrade } from '@/api/educatePlan'
 export default {
   data() {
     return {
-      tableData: [{
-        grade: '一六级',
-        name: '好滋好味鸡蛋仔',
-        category: '江浙小吃、小吃零食',
-        desc: '荷兰优质淡奶，奶香浓而不腻',
-        address: '上海市普陀区真北路',
-        shop: '王小虎夫妻店',
-        shopId: '10333'
-      }]
+      planData: []
     }
   },
+  created() {
+    this.getPlan();
+  },
   methods: {
-    addPlan() {
-      findTrainProgramByGrade(16).then(res => {
-        console.log(res, 'res')
+    getPlan() {
+      initTrainProgramByGrade().then(res => {
+        this.planData = res.data;
+        console.log(this.planData, 'init返回值');
       })
+    },
+    addPlan() {
+      this.$router.push({path: '/educatePlan/addEducatePlan'});
     }
   }
   }

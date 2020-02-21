@@ -59,12 +59,21 @@ export const constantRoutes = [
     path: '/educatePlan',
     component: Layout,
     redirect: '/educatePlan',
-    children: [{
-      path: 'educatePlan',
-      name: 'EducatePlan',
-      component: () => import('@/views/educatePlan/index'),
-      meta: { title: '管理培养方案', icon: 'form' }
-    }]
+    children: [
+      {
+        path: 'educatePlan',
+        name: 'EducatePlan',
+        component: () => import('@/views/educatePlan/index'),
+        meta: { title: '管理培养方案', icon: 'form' }
+      },
+      {
+        path: 'addEducatePlan',
+        name: 'AddEducatePlan',
+        hidden: true,
+        component: () => import('@/views/educatePlan/addEducatePlan'),
+        meta: { title: '增加培养方案', icon: 'form' }
+      }
+    ]
   },
 
   {
@@ -102,6 +111,8 @@ export const constantRoutes = [
       meta: { title: '管理就业前景', icon: 'table' }
     }]
   },
+
+  // ---------------------------------------
 
   {
     path: '/dashboard',

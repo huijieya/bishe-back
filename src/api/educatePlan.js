@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function initTrainProgramByGrade(params) {
+  return request({
+    url: '/trainProgram/page/init',
+    method: 'get',
+    params
+  })
+}
+
 export function addTrainProgram(params) {
   return request({
     url: '/trainProgram/add',
