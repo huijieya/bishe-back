@@ -72,6 +72,13 @@ export const constantRoutes = [
         hidden: true,
         component: () => import('@/views/educatePlan/addEducatePlan'),
         meta: { title: '增加培养方案', icon: 'form' }
+      },
+      {
+        path: 'editEducatePlan',
+        name: 'EditEducatePlan',
+        hidden: true,
+        component: () => import('@/views/educatePlan/editEducatePlan'),
+        meta: { title: '修改培养方案', icon: 'form' }
       }
     ]
   },

@@ -34,7 +34,7 @@ export function alterTrainProgram(params) {
 
 export function findTrainProgramByGrade(params) {
   return request({
-    url: '/trainProgram/findByGrade',
+    url: '/trainProgram/findByGrade' + '?grade=' + params,
     method: 'get',
     params
   })

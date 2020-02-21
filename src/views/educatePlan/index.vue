@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { initTrainProgramByGrade, addTrainProgram, findTrainProgramByGrade } from '@/api/educatePlan'
+import { initTrainProgramByGrade, addTrainProgram } from '@/api/educatePlan'
 export default {
   data() {
     return {
@@ -72,6 +72,10 @@ export default {
     },
     addPlan() {
       this.$router.push({path: '/educatePlan/addEducatePlan'});
+    },
+    handleEdit(index,row) {
+      console.log(index,row, 'index+row')
+      this.$router.push({path: '/educatePlan/editEducatePlan', query: {grade: row.grade}});
     }
   }
   }
