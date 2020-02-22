@@ -11,7 +11,7 @@ export function initTrainProgramByGrade(params) {
 export function addTrainProgram(params) {
   return request({
     url: '/trainProgram/add',
-    method: 'get',
+    method: 'post',
     params
   })
 }

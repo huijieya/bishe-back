@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import qs from 'qs'
 
 // create an axios instance
 const service = axios.create({
@@ -11,7 +12,7 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
-// request interceptor
+// request拦截器
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -22,6 +23,12 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+    if (config.method === 'post') {
+      console.log(config.headers, 'config.headers')
+      if (!config.headers['Content-Type']) {
+        config.data = qs.stringify(config.data)
+      }
+    }
     return config
   },
   error => {
@@ -31,7 +38,7 @@ service.interceptors.request.use(
   }
 )
 
-// response interceptor
+// response拦截器
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
