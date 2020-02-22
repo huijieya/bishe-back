@@ -1,6 +1,15 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
+      <el-form-item label="年级">
+        <el-select v-model="form.grade" placeholder="请选择年级">
+          <el-option label="2016" value="2016"></el-option>
+          <el-option label="2017" value="2017"></el-option>
+          <el-option label="2018" value="2018"></el-option>
+          <el-option label="2019" value="2019"></el-option>
+          <el-option label="2020" value="2020"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="标题一">
         <el-input v-model="form.trainGoal" />
       </el-form-item>
@@ -35,7 +44,7 @@
         <el-input v-model="form.conferDegree" />
       </el-form-item>
       <el-form-item label="标题六内容">
-        <el-input v-model="form.creditRequirementIntroduce" type="textarea" />
+        <el-input v-model="form.conferDegreeIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">更新</el-button>
@@ -46,28 +55,53 @@
 </template>
 
 <script>
-import { alterTrainProgram, findTrainProgramByGrade } from '@/api/educatePlan'
+import { alterTrainProgram, findTrainProgramById } from '@/api/educatePlan'
+import global from '../../config/gradeList.js'
+
 
 export default {
   data() {
     return {
-      form: {},
-      grade: '',
+      form: {
+        gradeId: '',
+        grade: '',
+        trainGoal: '',
+        trainGoalIntroduce: '',
+        trainSpecial: '',
+        trainSpecialIntroduce: '',
+        mainCourse: '',
+        mainCourseIntroduce: '',
+        educationalSystem: '',
+        educationalSystemDetail: '',
+        creditRequirment: '',
+        creditRequirementIntroduce: '',
+        conferDegree: '',
+        conferDegreeIntroduce: ''
+      },
+      keyId: '',
+      gradeIdList: global.gradeList,
     }
   },
   created() {
-    this.grade = this.$route.query.grade;
-    console.log(this.grade, 'this.grade');
-    this.findPlanByGrade();
+    this.keyId = this.$route.query.keyId;
+    console.log(this.keyId, 'this.keyId');
+    this.findPlanById();
   },
   methods: {
     onSubmit() {
-      this.$message('submit!(接口未测试)');
-      this.form.updateTime = this.getNowDate().currentdate;
+      console.log(this.gradeIdList)
+      this.gradeIdList.forEach(item => {
+        console.log(this.form.grade, 'this.form.grade')
+        if(item.grade == this.form.grade){
+          this.form.gradeId = item.keyId;
+        }
+      })
+      this.$message('submit!');
       console.log(JSON.stringify(this.form), 'form')
-      // alterTrainProgram(JSON.stringify(this.form)).then(res => {
-      //   console.log(res, "alterTrainProgram的res")
-      // })
+      alterTrainProgram(this.keyId, JSON.stringify(this.form)).then(res => {
+        console.log(res, "alterTrainProgram的res")
+      })
+      this.$router.go(-1);
     },
     onCancel() {
       this.$message({
@@ -76,24 +110,26 @@ export default {
       })
       this.$router.go(-1);
     },
-    getNowDate() {
-      var date = new Date();
-      var seperator1 = "-";
-      var seperator2 = ":";
-      var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-      var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + day
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-      return {
-        currentdate: currentdate
-      }
-    },
-    findPlanByGrade() {
-      findTrainProgramByGrade(2016).then(res => {
+    findPlanById() {
+      findTrainProgramById(this.keyId).then(res => {
         var data = res.data;
-        console.log(data, 'findTrainProgramByGrade返回值')
-        this.form = data;
+        this.form.keyId = data.keyId;
+        this.form.gradeId = data.gradeId;
+        this.form.grade = data.grade;
+        this.form.trainGoal = data.trainGoal;
+        this.form.trainGoalIntroduce = data.trainGoalIntroduce;
+
+        this.form.trainSpecial = data.trainSpecial;
+        this.form.trainSpecialIntroduce = data.trainSpecialIntroduce;
+        this.form.mainCourse = data.mainCourse;
+        this.form.mainCourseIntroduce = data.mainCourseIntroduce;
+
+        this.form.educationalSystem = data.educationalSystem;
+        this.form.educationalSystemDetail = data.educationalSystemDetail;
+        this.form.creditRequirment = data.creditRequirment;
+        this.form.creditRequirementIntroduce = data.creditRequirementIntroduce;
+        this.form.conferDegree = data.conferDegree;
+        this.form.conferDegreeIntroduce = data.conferDegreeIntroduce;
       })
     }
   }

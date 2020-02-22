@@ -56,12 +56,14 @@
 
 <script>
 import { addTrainProgram } from '@/api/educatePlan'
+import global from '../../config/gradeList.js'
 
 export default {
   data() {
     return {
       form: {
-        gradeId: 1,
+        gradeId: '',
+        grade: '',
         trainGoal: '一、专业培养目标和培养要求',
         trainGoalIntroduce: '11',
         trainSpecial: '二、专业培养特色',
@@ -75,16 +77,22 @@ export default {
         conferDegree: '六、学位授予',
         conferDegreeIntroduce: '66'
       },
+      gradeIdList: global.gradeList,
     }
   },
   methods: {
     onSubmit() {
+      this.gradeIdList.forEach(item => {
+        if(item.grade == this.form.grade){
+          this.form.gradeId = item.keyId;
+        }
+      })
       this.$message('submit!');
-      this.form.updateTime = this.getNowDate().currentdate;
       console.log(JSON.stringify(this.form), 'form')
       addTrainProgram(JSON.stringify(this.form)).then(res => {
         console.log(res, "addTrainProgram的res")
       })
+      this.$router.go(-1);
     },
     onCancel() {
       this.$message({
@@ -92,20 +100,7 @@ export default {
         type: 'warning'
       })
       this.$router.go(-1);
-    },
-    getNowDate() {
-      var date = new Date();
-      var seperator1 = "-";
-      var seperator2 = ":";
-      var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-      var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + day
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-      return {
-        currentdate: currentdate
-      }
-    },
+    }
   }
 }
 </script>

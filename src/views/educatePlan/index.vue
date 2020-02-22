@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { initTrainProgramByGrade, deleteTrainProgram } from '@/api/educatePlan'
+import { initTrainProgram, deleteTrainProgram } from '@/api/educatePlan'
 export default {
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getPlan() {
-      initTrainProgramByGrade().then(res => {
+      initTrainProgram().then(res => {
         this.planData = res.data;
         console.log(this.planData, 'init返回值');
       })
@@ -74,14 +74,20 @@ export default {
       this.$router.push({path: '/educatePlan/addEducatePlan'});
     },
     handleEdit(index,row) {
-      console.log(index,row, 'index+row')
-      this.$router.push({path: '/educatePlan/editEducatePlan', query: {grade: row.grade}});
+      console.log(index,row, 'handleEdit--index+row')
+      this.$router.push({path: '/educatePlan/editEducatePlan', query: {keyId: row.keyId}});
     },
     handleDelete(index, row) {
-      this.$message({
-          type: "warning",
-          message: "最多添加七个图文导航！"
+      console.log(index, row, '删除的index+row')
+      var keyId = row.keyId;
+      deleteTrainProgram(keyId).then(res => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
         });
+        this.getPlan();
+      })
+
     }
   }
   }

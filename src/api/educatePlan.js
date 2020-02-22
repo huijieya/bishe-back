@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function initTrainProgramByGrade(params) {
+export function initTrainProgram(params) {
   return request({
     url: '/trainProgram/page/init',
     method: 'get',
@@ -19,15 +19,15 @@ export function addTrainProgram(data) {
 
 export function deleteTrainProgram(params) {
   return request({
-    url: '/trainProgram/delete',
+    url: '/trainProgram/delete' + '?id=' + params,
     method: 'delete',
     params
   })
 }
 
-export function alterTrainProgram(data) {
+export function alterTrainProgram(id, data) {
   return request({
-    url: '/trainProgram/alter',
+    url: '/trainProgram/alter' + '?id=' + id,
     method: 'post',
     data: data,
     headers: { 'Content-Type': 'application/json' }
@@ -37,6 +37,14 @@ export function alterTrainProgram(data) {
 export function findTrainProgramByGrade(params) {
   return request({
     url: '/trainProgram/findByGrade' + '?grade=' + params,
+    method: 'get',
+    params
+  })
+}
+
+export function findTrainProgramById(params) {
+  return request({
+    url: '/trainProgram/findById' + '?id=' + params,
     method: 'get',
     params
   })
