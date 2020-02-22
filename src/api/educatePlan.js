@@ -8,11 +8,12 @@ export function initTrainProgramByGrade(params) {
   })
 }
 
-export function addTrainProgram(params) {
+export function addTrainProgram(data) {
   return request({
     url: '/trainProgram/add',
     method: 'post',
-    params
+    data: data,
+    headers: { 'Content-Type': 'application/json' }
   })
 }
 
@@ -24,11 +25,12 @@ export function deleteTrainProgram(params) {
   })
 }
 
-export function alterTrainProgram(params) {
+export function alterTrainProgram(data) {
   return request({
     url: '/trainProgram/alter',
     method: 'post',
-    params
+    data: data,
+    headers: { 'Content-Type': 'application/json' }
   })
 }
 

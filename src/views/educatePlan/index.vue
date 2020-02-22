@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { initTrainProgramByGrade, addTrainProgram } from '@/api/educatePlan'
+import { initTrainProgramByGrade, deleteTrainProgram } from '@/api/educatePlan'
 export default {
   data() {
     return {
@@ -76,6 +76,12 @@ export default {
     handleEdit(index,row) {
       console.log(index,row, 'index+row')
       this.$router.push({path: '/educatePlan/editEducatePlan', query: {grade: row.grade}});
+    },
+    handleDelete(index, row) {
+      this.$message({
+          type: "warning",
+          message: "最多添加七个图文导航！"
+        });
     }
   }
   }

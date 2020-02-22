@@ -1,6 +1,15 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
+      <el-form-item label="年级">
+        <el-select v-model="form.grade" placeholder="请选择年级">
+          <el-option label="2016" value="2016"></el-option>
+          <el-option label="2017" value="2017"></el-option>
+          <el-option label="2018" value="2018"></el-option>
+          <el-option label="2019" value="2019"></el-option>
+          <el-option label="2020" value="2020"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="标题一">
         <el-input v-model="form.trainGoal" />
       </el-form-item>
@@ -35,7 +44,7 @@
         <el-input v-model="form.conferDegree" />
       </el-form-item>
       <el-form-item label="标题六内容">
-        <el-input v-model="form.creditRequirementIntroduce" type="textarea" />
+        <el-input v-model="form.conferDegreeIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Create</el-button>
@@ -52,7 +61,7 @@ export default {
   data() {
     return {
       form: {
-        gradId: 2013,
+        gradeId: 1,
         trainGoal: '一、专业培养目标和培养要求',
         trainGoalIntroduce: '11',
         trainSpecial: '二、专业培养特色',
@@ -64,7 +73,7 @@ export default {
         creditRequirment: '五、毕业学分标准',
         creditRequirementIntroduce: '55',
         conferDegree: '六、学位授予',
-        creditRequirementIntroduce: '66'
+        conferDegreeIntroduce: '66'
       },
     }
   },

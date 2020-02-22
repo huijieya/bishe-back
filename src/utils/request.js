@@ -23,12 +23,14 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
-    if (config.method === 'post') {
-      console.log(config.headers, 'config.headers')
-      if (!config.headers['Content-Type']) {
-        config.data = qs.stringify(config.data)
-      }
-    }
+    console.log(config.headers, 'config.headers')
+    console.log(config.method, 'config.method')
+    // debugger
+    // if (config.method === 'post') {
+    //   if (!config.headers['Content-Type']) {
+    //     config.data = qs.stringify(config.data)
+    //   }
+    // }
     return config
   },
   error => {
