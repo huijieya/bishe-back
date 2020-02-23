@@ -23,8 +23,6 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
-    console.log(config.headers, 'config.headers')
-    console.log(config.method, 'config.method')
     // debugger
     // if (config.method === 'post') {
     //   if (!config.headers['Content-Type']) {

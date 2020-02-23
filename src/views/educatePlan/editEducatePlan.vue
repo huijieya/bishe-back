@@ -91,21 +91,21 @@ export default {
     onSubmit() {
       console.log(this.gradeIdList)
       this.gradeIdList.forEach(item => {
-        console.log(this.form.grade, 'this.form.grade')
         if(item.grade == this.form.grade){
           this.form.gradeId = item.keyId;
         }
       })
-      this.$message('submit!');
-      console.log(JSON.stringify(this.form), 'form')
       alterTrainProgram(this.keyId, JSON.stringify(this.form)).then(res => {
-        console.log(res, "alterTrainProgram的res")
+        this.$message({
+          message: '更新成功',
+          type: 'success'
+        });
       })
       this.$router.go(-1);
     },
     onCancel() {
       this.$message({
-        message: 'cancel!',
+        message: '已取消',
         type: 'warning'
       })
       this.$router.go(-1);

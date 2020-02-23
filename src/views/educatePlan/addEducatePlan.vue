@@ -47,8 +47,8 @@
         <el-input v-model="form.conferDegreeIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
+        <el-button type="primary" @click="onSubmit">新增</el-button>
+        <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -87,16 +87,17 @@ export default {
           this.form.gradeId = item.keyId;
         }
       })
-      this.$message('submit!');
-      console.log(JSON.stringify(this.form), 'form')
       addTrainProgram(JSON.stringify(this.form)).then(res => {
-        console.log(res, "addTrainProgram的res")
+        this.$message({
+          message: '更新成功',
+          type: 'success'
+        });
       })
       this.$router.go(-1);
     },
     onCancel() {
       this.$message({
-        message: 'cancel!',
+        message: '已取消',
         type: 'warning'
       })
       this.$router.go(-1);

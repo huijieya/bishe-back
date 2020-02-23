@@ -60,34 +60,41 @@ export default {
       planData: []
     }
   },
-  created() {
+  mounted() {
     this.getPlan();
   },
   methods: {
     getPlan() {
       initTrainProgram().then(res => {
         this.planData = res.data;
-        console.log(this.planData, 'init返回值');
       })
     },
     addPlan() {
       this.$router.push({path: '/educatePlan/addEducatePlan'});
     },
     handleEdit(index,row) {
-      console.log(index,row, 'handleEdit--index+row')
       this.$router.push({path: '/educatePlan/editEducatePlan', query: {keyId: row.keyId}});
     },
     handleDelete(index, row) {
-      console.log(index, row, '删除的index+row')
       var keyId = row.keyId;
-      deleteTrainProgram(keyId).then(res => {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteTrainProgram(keyId).then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.getPlan();
+        })
+      }).catch(() => {
         this.$message({
-          type: 'success',
-          message: '删除成功!'
+          type: 'info',
+          message: '已取消删除'
         });
-        this.getPlan();
-      })
-
+      });
     }
   }
   }
