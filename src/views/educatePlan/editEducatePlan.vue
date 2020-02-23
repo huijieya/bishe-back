@@ -7,7 +7,6 @@
           <el-option label="2017" value="2017"></el-option>
           <el-option label="2018" value="2018"></el-option>
           <el-option label="2019" value="2019"></el-option>
-          <el-option label="2020" value="2020"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标题一">
