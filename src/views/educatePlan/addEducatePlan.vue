@@ -64,17 +64,17 @@ export default {
         gradeId: '',
         grade: '',
         trainGoal: '一、专业培养目标和培养要求',
-        trainGoalIntroduce: '11',
+        trainGoalIntroduce: '',
         trainSpecial: '二、专业培养特色',
-        trainSpecialIntroduce: '22',
+        trainSpecialIntroduce: '',
         mainCourse: '三、主干学科与核心课程',
-        mainCourseIntroduce: '33',
+        mainCourseIntroduce: '',
         educationalSystem: '四、修业年限',
-        educationalSystemDetail: '44',
+        educationalSystemDetail: '',
         creditRequirment: '五、毕业学分标准',
-        creditRequirementIntroduce: '55',
+        creditRequirementIntroduce: '',
         conferDegree: '六、学位授予',
-        conferDegreeIntroduce: '66'
+        conferDegreeIntroduce: ''
       },
       gradeIdList: global.gradeList,
     }

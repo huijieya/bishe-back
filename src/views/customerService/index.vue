@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img style="margin: 30px 116px;width: 800px;" src="../../assets/就业.png" alt="">
+    <h1>customerService</h1>
   </div>
 </template>
 
