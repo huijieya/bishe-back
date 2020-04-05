@@ -1,5 +1,7 @@
 import request from '@/utils/request'
 
+// post
+// 获取所有培养方向
 export function getEducateDirection(data) {
   return request({
     url: '/get/trainDirection',
@@ -8,6 +10,18 @@ export function getEducateDirection(data) {
   })
 }
 
+// post+参数在请求头拼接
+// 根据Id获取单个培养方向
+export function getDirectionById(id) {
+  return request({
+    url: '/get/direction/byId' + '?id=' + id,
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
+// post+Content-Type
+// 新增培养方向
 export function insertEducateDirection(data) {
   return request({
     url: '/insert/trainDirection',
@@ -17,17 +31,41 @@ export function insertEducateDirection(data) {
   })
 }
 
-export function deleteEducateDirection(data) {
+// 删除培养方向（有bug)
+export function deleteEducateDirection(id) {
   return request({
-    url: '/delete/train/direction',
+    url: '/delete/train/direction' + '?id=' + id,
     method: 'post',
-    data
+    transformRequest: [
+      function(data) {
+        let ret = ''
+        for (let it in data) {
+          ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        }
+        ret = ret.substring(0, ret.lastIndexOf('&'))
+        return ret
+      }
+    ],
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   })
 }
 
-export function alterEducateDirection(data) {
+// 编辑培养方向
+export function alterEducateDirection(id, data) {
   return request({
-    url: '/alter/train/direction',
+    url: '/alter/train/direction' + '?id=' + id,
+    method: 'post',
+    data: data,
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
+// 培养方向-上传图片
+export function uploadFile(data) {
+  return request({
+    url: '/file/upload',
     method: 'post',
     data
   })

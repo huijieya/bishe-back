@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="年级"
+        label="版本"
         prop="grade">
       </el-table-column>
       <el-table-column

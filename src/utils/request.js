@@ -2,12 +2,11 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-import qs from 'qs'
 
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL: 'http://127.0.0.1:8080',
+  baseURL: 'http://120.26.179.168:8080',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -23,12 +22,7 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
-    // debugger
-    // if (config.method === 'post') {
-    //   if (!config.headers['Content-Type']) {
-    //     config.data = qs.stringify(config.data)
-    //   }
-    // }
+
     return config
   },
   error => {
