@@ -51,7 +51,6 @@ export default {
   data() {
     return {
       directionList: [],
-      imgUrl: 'http://120.26.179.168:8080/b39b235ea5084e8e9904d6b3c07f0300.jpg'
     }
   },
   mounted() {
@@ -66,15 +65,12 @@ export default {
       })
     },
     addDirection() {
-      this.$router.push({path: '/educateDirection/editDirection'})
+      this.$router.push({path: '/direction/editDirection'})
     },
     editDirection(index,row) {
-      this.$router.push({path: '/educateDirection/editDirection', query: {keyId: row.keyId}});
+      this.$router.push({path: '/direction/editDirection', query: {keyId: row.keyId}});
     },
     deleteDirection(index, row) {
-      console.log(index, "index")
-      console.log(row, "row")
-
       let keyId = row.keyId;
       console.log(keyId, "删除id")
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -103,8 +99,5 @@ export default {
 <style>
 .table{
     margin: 10px 10px;
-}
-.m30{
-  margin: 30px;
 }
 </style>

@@ -1,40 +1,37 @@
 import request from '@/utils/request'
 
-// post
-// 获取所有培养方向
-export function getEducateDirection(data) {
+// 根据流程Id查询流程
+export function getProcessById(id) {
   return request({
-    url: '/get/trainDirection',
-    method: 'post',
-    data
-  })
-}
-
-// post+参数在请求头拼接
-// 根据Id获取单个培养方向
-export function getDirectionById(id) {
-  return request({
-    url: '/get/direction/byId' + '?id=' + id,
+    url: '/get/process/byId' + '?id=' + id,
     method: 'post',
     headers: { 'Content-Type': 'application/json' }
   })
 }
 
-// post+Content-Type
-// 新增培养方向
-export function insertEducateDirection(data) {
+// 根据培养方向Id查询开发流程
+export function getProcess(id) {
   return request({
-    url: '/insert/trainDirection',
+    url: '/get/process' + '?trainDirectionId=' + id,
     method: 'post',
-    data,
     headers: { 'Content-Type': 'application/json' }
   })
 }
 
-// 删除培养方向
-export function deleteEducateDirection(id) {
+// 增加流程
+export function insertProcess(data) {
   return request({
-    url: '/delete/train/direction' + '?id=' + id,
+    url: '/insert/process',
+    method: 'post',
+    data: data,
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
+// 删除流程
+export function deleteProcess(id) {
+  return request({
+    url: '/delete/process' + '?id=' + id,
     method: 'post',
     transformRequest: [
       function(data) {
@@ -52,21 +49,12 @@ export function deleteEducateDirection(id) {
   })
 }
 
-// 修改培养方向
-export function alterEducateDirection(id, data) {
+// 修改流程
+export function alterProcess(id, data) {
   return request({
-    url: '/alter/train/direction' + '?id=' + id,
+    url: '/alter/process' + '?trainDirectionId=' + id,
     method: 'post',
     data: data,
     headers: { 'Content-Type': 'application/json' }
-  })
-}
-
-// 培养方向-上传图片
-export function uploadFile(data) {
-  return request({
-    url: '/file/upload',
-    method: 'post',
-    data
   })
 }

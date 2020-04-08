@@ -33,7 +33,7 @@
 <script>
 // 修改差一个根据id查培养方向接口
 // 删除不管用
-import { insertEducateDirection, getEducateDirection, alterEducateDirection, getDirectionById } from '@/api/educateDirection'
+import { insertEducateDirection, alterEducateDirection, getDirectionById } from '@/api/educateDirection'
 export default {
   data() {
     return {
@@ -80,12 +80,6 @@ export default {
         type: 'warning'
       })
       this.$router.go(-1);
-    },
-    getDirection() {
-      getEducateDirection().then(res => {
-        this.directionList = res.data;
-        console.log(this.directionList, 'this.directionList');
-      })
     },
     findPlanById(id) {
       getDirectionById(id).then(res => {

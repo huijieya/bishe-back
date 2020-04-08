@@ -84,9 +84,10 @@ export const constantRoutes = [
   },
 
   {
-    path: '/educateDirection',
+    path: '/direction',
     component: Layout,
-    redirect: '/educateDirection',
+    redirect: '/direction/educateDirection',
+    meta: { title: '培养方向系列', icon: 'example' },
     children: [
       {
         path: 'educateDirection',
@@ -100,6 +101,20 @@ export const constantRoutes = [
         hidden: true,
         component: () => import('@/views/educateDirection/editDirection'),
         meta: { title: '编辑培养方向', icon: '' }
+      },
+      // ------------------------------------------
+      {
+        path: 'process',
+        name: 'Process',
+        component: () => import('@/views/educateDirection/process/index'),
+        meta: { title: '管理开发流程', icon: 'table' }
+      },
+      {
+        path: 'editProcess',
+        name: 'EditProcess',
+        hidden: true,
+        component: () => import('@/views/educateDirection/process/editProcess'),
+        meta: { title: '编辑开发流程', icon: '' }
       }
     ]
   },
