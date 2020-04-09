@@ -19,9 +19,9 @@ export function getProcess(id) {
 }
 
 // 增加流程
-export function insertProcess(data) {
+export function insertProcess(id, data) {
   return request({
-    url: '/insert/process',
+    url: '/insert/process' + '?trainDirectionId=' + id,
     method: 'post',
     data: data,
     headers: { 'Content-Type': 'application/json' }

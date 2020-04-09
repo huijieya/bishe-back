@@ -26,20 +26,20 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="editDirection(scope.$index, scope.row)">修改</el-button>
+            @click="editProcess(scope.$index, scope.row)">修改</el-button>
           <el-button
             size="mini"
-            @click="deleteDirection(scope.$index, scope.row)">删除</el-button>
+            @click="deleteProcess(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-button class="m30" type="primary" @click="addDirection">增加开发流程</el-button>
+    <el-button class="m30" type="primary" @click="addProcess()">增加开发流程</el-button>
   </div>
 </template>
 
 <script>
 import { getEducateDirection } from '@/api/educateDirection'
-import { getProcess } from '@/api/process'
+import { getProcess, deleteProcess } from '@/api/process'
 export default {
   data() {
     return {
@@ -57,6 +57,7 @@ export default {
     // 查该方向下培养流程
     queryProcess(keyId) {
       this.nowDirectionId = keyId;
+      console.log(this.nowDirectionId, 'nowDirectionId');
       getProcess(keyId).then(res => {
         this.process = res.data.flowInfo;
         console.log(this.process, 'process')
@@ -67,18 +68,19 @@ export default {
       getEducateDirection().then(res => {
         this.directionList = res.data;
         this.firstDirectionId = this.directionList[0].keyId;
+        this.nowDirectionId = this.firstDirectionId;
         getProcess(this.firstDirectionId).then(res => {
           this.process = res.data.flowInfo;
         })
       })
     },
-    addDirection() {
-      this.$router.push({path: '/direction/editProcess', query: {trainDirectionId: this.nowDirectionId}})
+    addProcess() {
+      this.$router.push({path: '/direction/editProcess', query: {directionId: this.nowDirectionId}})
     },
-    editDirection(index,row) {
+    editProcess(index,row) {
       this.$router.push({path: '/direction/editProcess', query: {keyId: row.keyId, directionId: this.nowDirectionId}});
     },
-    deleteDirection(index, row) {
+    deleteProcess(index, row) {
       let keyId = row.keyId;
       console.log(keyId, "删除id")
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -86,7 +88,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteEducateDirection(keyId).then(res => {
+        deleteProcess(keyId).then(res => {
           this.$message({
             type: 'success',
             message: '删除成功!'

@@ -1,3 +1,12 @@
+.warning {
+  color: #E6A23C;
+}
+.hint {
+  height: 40px;
+  line-height: 40px;
+  color: #ccc;
+  font-size: 14px;
+}
 .plain {
   color: #409EFF;
   background: #ecf5ff;
@@ -103,11 +112,14 @@
   vertical-align: text-top;
 }
 
-.m15{
+.m15 {
   margin: 15px;
 }
 
-.m30{
+.m30 {
   margin: 30px;
+}
+.m_auto {
+  margin: auto;
 }
 
