@@ -17,9 +17,9 @@
       <el-form-item label="培养方向简介">
         <el-input v-model="directionForm.trainDirectionContent"></el-input>
       </el-form-item>
-      <el-form-item label="相关职业证书">
+      <!-- <el-form-item label="相关职业证书">
         <el-input v-model="directionForm.certificate"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <!-- 区别新增和修改  -->
         <el-button v-show="!isEdit" type="primary" @click="addDirection()">新增</el-button>
@@ -41,7 +41,7 @@ export default {
         picture: '',
         trainDirectionName: '',
         trainDirectionContent: '',
-        certificate: ''
+        // certificate: ''
       },
       isEdit: false,
       imageUrl: '',
@@ -87,7 +87,7 @@ export default {
         this.directionForm['picture'] = temp.picture;
         this.directionForm['trainDirectionName'] = temp.trainDirectionName;
         this.directionForm['trainDirectionContent'] = temp.trainDirectionContent;
-        this.directionForm['certificate'] = temp.certificate;
+        // this.directionForm['certificate'] = temp.certificate;
       })
     },
     handleAvatarSuccess(res, file) {

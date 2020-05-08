@@ -26,6 +26,9 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            @click="viewJob(scope.$index, scope.row)">下设岗位</el-button>
+          <el-button
+            size="mini"
             @click="editProcess(scope.$index, scope.row)">修改</el-button>
           <el-button
             size="mini"
@@ -53,7 +56,6 @@ export default {
     this.getDirection();
   },
   methods: {
-    // 删除未对
     // 查该方向下培养流程
     queryProcess(keyId) {
       this.nowDirectionId = keyId;
@@ -101,6 +103,9 @@ export default {
           message: '已取消删除'
         });
       });
+    },
+    viewJob(index, row) {
+      this.$router.push({path: '/direction/viewJob', query: {liuchengId: row.keyId}})
     }
   }
 }

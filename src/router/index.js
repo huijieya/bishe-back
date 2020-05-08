@@ -84,6 +84,34 @@ export const constantRoutes = [
   },
 
   {
+    path: '/courseSystem',
+    component: Layout,
+    redirect: '/courseSystem',
+    children: [
+      {
+        path: 'courseSystem',
+        name: 'CourseSystem',
+        component: () => import('@/views/courseSystem/index'),
+        meta: { title: '管理课程体系', icon: 'form' }
+      },
+      {
+        path: 'addEducatePlan',
+        name: 'AddEducatePlan',
+        hidden: true,
+        component: () => import('@/views/educatePlan/addEducatePlan'),
+        meta: { title: '增加培养方案', icon: '' }
+      },
+      {
+        path: 'editEducatePlan',
+        name: 'EditEducatePlan',
+        hidden: true,
+        component: () => import('@/views/educatePlan/editEducatePlan'),
+        meta: { title: '修改培养方案', icon: '' }
+      }
+    ]
+  },
+
+  {
     path: '/direction',
     component: Layout,
     redirect: '/direction/educateDirection',
@@ -115,6 +143,21 @@ export const constantRoutes = [
         hidden: true,
         component: () => import('@/views/educateDirection/process/editProcess'),
         meta: { title: '编辑开发流程', icon: '' }
+      },
+      // ------------------------------------------
+      {
+        path: 'viewJob',
+        name: 'ViewJob',
+        hidden: true,
+        component: () => import('@/views/educateDirection/viewJob/index'),
+        meta: { title: '管理岗位详情', icon: '' }
+      },
+      {
+        path: 'manageJob',
+        name: 'ManageJob',
+        hidden: true,
+        component: () => import('@/views/educateDirection/viewJob/manageJob'),
+        meta: { title: '编辑岗位', icon: '' }
       }
     ]
   },

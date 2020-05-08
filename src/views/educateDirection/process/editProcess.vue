@@ -94,12 +94,6 @@ export default {
         this.processForm['flowIntro'] = temp.flowIntro;
       })
     },
-    handleAvatarSuccess(res, file) {
-      this.processForm.picture = res.data;
-      console.log(res, 'imageUrl');
-      console.log(file, 'file');
-
-    },
   }
 }
 </script>

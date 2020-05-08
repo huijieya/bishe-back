@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>职业规划</h2>
+    <h1>课程体系管理</h1>
   </div>
 </template>
 

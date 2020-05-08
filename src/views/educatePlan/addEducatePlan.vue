@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="年级">
+      <el-form-item label="适用年级">
         <el-select v-model="form.grade" placeholder="请选择适用年级">
           <el-option label="2016" value="2016"></el-option>
           <el-option label="2017" value="2017"></el-option>
