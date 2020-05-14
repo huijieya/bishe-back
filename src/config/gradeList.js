@@ -14,6 +14,10 @@ const gradeList = [
   {
     grade: '2019',
     keyId: 4
+  },
+  {
+    grade: '2020',
+    keyId: 5
   }
 ]
 

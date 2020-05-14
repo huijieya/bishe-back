@@ -45,14 +45,28 @@ export const constantRoutes = [
 
   {
     path: '/',
+    redirect: '/video/video'
+  },
+
+  {
+    path: '/video',
     component: Layout,
     redirect: '/video',
-    children: [{
-      path: 'video',
-      name: 'Video',
-      component: () => import('@/views/video/index'),
-      meta: { title: '管理导学视频', icon: 'dashboard' }
-    }]
+    children: [
+      {
+        path: 'video',
+        name: 'Video',
+        component: () => import('@/views/video/index'),
+        meta: { title: '导学视频', icon: 'dashboard' }
+      },
+      {
+        path: 'editVideo',
+        name: 'EditVideo',
+        hidden: true,
+        component: () => import('@/views/video/editVideo'),
+        meta: { title: '修改导学视频', icon: '' }
+      }
+    ]
   },
 
   {
@@ -64,7 +78,7 @@ export const constantRoutes = [
         path: 'educatePlan',
         name: 'EducatePlan',
         component: () => import('@/views/educatePlan/index'),
-        meta: { title: '管理培养方案', icon: 'form' }
+        meta: { title: '培养方案', icon: 'dashboard' }
       },
       {
         path: 'addEducatePlan',
@@ -92,21 +106,14 @@ export const constantRoutes = [
         path: 'courseSystem',
         name: 'CourseSystem',
         component: () => import('@/views/courseSystem/index'),
-        meta: { title: '管理课程体系', icon: 'form' }
+        meta: { title: '课程体系', icon: 'form' }
       },
       {
-        path: 'addEducatePlan',
-        name: 'AddEducatePlan',
+        path: 'editCourse',
+        name: 'EditCourse',
         hidden: true,
-        component: () => import('@/views/educatePlan/addEducatePlan'),
-        meta: { title: '增加培养方案', icon: '' }
-      },
-      {
-        path: 'editEducatePlan',
-        name: 'EditEducatePlan',
-        hidden: true,
-        component: () => import('@/views/educatePlan/editEducatePlan'),
-        meta: { title: '修改培养方案', icon: '' }
+        component: () => import('@/views/courseSystem/editCourse'),
+        meta: { title: '编辑课程体系', icon: '' }
       }
     ]
   },
@@ -121,7 +128,7 @@ export const constantRoutes = [
         path: 'educateDirection',
         name: 'EducateDirection',
         component: () => import('@/views/educateDirection/index'),
-        meta: { title: '管理培养方向', icon: 'nested' }
+        meta: { title: '培养方向', icon: 'nested' }
       },
       {
         path: 'editDirection',
@@ -170,7 +177,7 @@ export const constantRoutes = [
       path: 'graduationDirection',
       name: 'GraduationDirection',
       component: () => import('@/views/graduationDirection/index'),
-      meta: { title: '管理职业规划', icon: 'tree' }
+      meta: { title: '毕业去向', icon: 'tree' }
     }]
   },
 

@@ -31,6 +31,11 @@
       </el-table-column>
       <el-table-column
         label="版本"
+        prop="version">
+      </el-table-column>
+      <!--  -->
+      <el-table-column
+        label="适用年级"
         prop="grade">
       </el-table-column>
       <el-table-column
@@ -38,16 +43,16 @@
         prop="updateTime">
       </el-table-column>
       <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-      </template>
-    </el-table-column>
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -77,7 +82,7 @@ export default {
     },
     handleDelete(index, row) {
       var keyId = row.keyId;
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

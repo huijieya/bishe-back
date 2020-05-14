@@ -1,49 +1,54 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="适用年级">
-        <el-select v-model="form.grade" placeholder="请选择适用年级">
-          <el-option label="2016" value="2016"></el-option>
-          <el-option label="2017" value="2017"></el-option>
-          <el-option label="2018" value="2018"></el-option>
-          <el-option label="2019" value="2019"></el-option>
+    <el-form ref="formData" :model="formData" label-width="120px">
+      <el-form-item label="版本">
+        <el-select v-model="formData.version" placeholder="请选择版本">
+          <el-option label="2015版" value="2015版"></el-option>
+          <el-option label="2017版" value="2017版"></el-option>
+          <el-option label="2019版" value="2019版"></el-option>
+          <el-option label="2020版" value="2020版"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="适用年级">
+        <el-checkbox-group v-model="formData.grade">
+          <el-checkbox v-for="grade in gradeList" :label="grade" :key="grade">{{grade}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="标题一">
-        <el-input v-model="form.trainGoal" />
+        <el-input v-model="formData.trainGoal" />
       </el-form-item>
       <el-form-item label="标题一内容">
-        <el-input v-model="form.trainGoalIntroduce" type="textarea" />
+        <el-input v-model="formData.trainGoalIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item label="标题二">
-        <el-input v-model="form.trainSpecial" />
+        <el-input v-model="formData.trainSpecial" />
       </el-form-item>
       <el-form-item label="标题二内容">
-        <el-input v-model="form.trainSpecialIntroduce" type="textarea" />
+        <el-input v-model="formData.trainSpecialIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item label="标题三">
-        <el-input v-model="form.mainCourse" />
+        <el-input v-model="formData.mainCourse" />
       </el-form-item>
       <el-form-item label="标题三内容">
-        <el-input v-model="form.mainCourseIntroduce" type="textarea" />
+        <el-input v-model="formData.mainCourseIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item label="标题四">
-        <el-input v-model="form.educationalSystem" />
+        <el-input v-model="formData.educationalSystem" />
       </el-form-item>
       <el-form-item label="标题四内容">
-        <el-input v-model="form.educationalSystemDetail" type="textarea" />
+        <el-input v-model="formData.educationalSystemDetail" type="textarea" />
       </el-form-item>
       <el-form-item label="标题五">
-        <el-input v-model="form.creditRequirment" />
+        <el-input v-model="formData.creditRequirment" />
       </el-form-item>
       <el-form-item label="标题五内容">
-        <el-input v-model="form.creditRequirementIntroduce" type="textarea" />
+        <el-input v-model="formData.creditRequirementIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item label="标题六">
-        <el-input v-model="form.conferDegree" />
+        <el-input v-model="formData.conferDegree" />
       </el-form-item>
       <el-form-item label="标题六内容">
-        <el-input v-model="form.conferDegreeIntroduce" type="textarea" />
+        <el-input v-model="formData.conferDegreeIntroduce" type="textarea" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">更新</el-button>
@@ -61,9 +66,10 @@ import global from '../../config/gradeList.js'
 export default {
   data() {
     return {
-      form: {
+      formData: {
         gradeId: '',
-        grade: '',
+        grade: [],
+        version: '',
         trainGoal: '',
         trainGoalIntroduce: '',
         trainSpecial: '',
@@ -79,22 +85,18 @@ export default {
       },
       keyId: '',
       gradeIdList: global.gradeList,
+      gradeList: ['2016','2017', '2018', '2019', '2020']
     }
   },
   created() {
     this.keyId = this.$route.query.keyId;
-    console.log(this.keyId, 'this.keyId');
     this.findPlanById();
   },
   methods: {
-    onSubmit() {
-      console.log(this.gradeIdList)
-      this.gradeIdList.forEach(item => {
-        if(item.grade == this.form.grade){
-          this.form.gradeId = item.keyId;
-        }
-      })
-      alterTrainProgram(this.keyId, JSON.stringify(this.form)).then(res => {
+    onSubmit() { // 存入时转成字符串
+      this.formData.grade = this.formData.grade.toString();
+      console.log(this.formData, 'formData')
+      alterTrainProgram(this.keyId, JSON.stringify(this.formData)).then(res => {
         this.$message({
           message: '更新成功',
           type: 'success'
@@ -109,26 +111,10 @@ export default {
       })
       this.$router.go(-1);
     },
-    findPlanById() {
+    findPlanById() { // 取出时转数组
       findTrainProgramById(this.keyId).then(res => {
-        var data = res.data;
-        this.form.keyId = data.keyId;
-        this.form.gradeId = data.gradeId;
-        this.form.grade = data.grade;
-        this.form.trainGoal = data.trainGoal;
-        this.form.trainGoalIntroduce = data.trainGoalIntroduce;
-
-        this.form.trainSpecial = data.trainSpecial;
-        this.form.trainSpecialIntroduce = data.trainSpecialIntroduce;
-        this.form.mainCourse = data.mainCourse;
-        this.form.mainCourseIntroduce = data.mainCourseIntroduce;
-
-        this.form.educationalSystem = data.educationalSystem;
-        this.form.educationalSystemDetail = data.educationalSystemDetail;
-        this.form.creditRequirment = data.creditRequirment;
-        this.form.creditRequirementIntroduce = data.creditRequirementIntroduce;
-        this.form.conferDegree = data.conferDegree;
-        this.form.conferDegreeIntroduce = data.conferDegreeIntroduce;
+        this.formData = res.data;
+        this.formData.grade = this.formData.grade.split(',')
       })
     }
   }

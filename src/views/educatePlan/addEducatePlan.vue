@@ -1,13 +1,22 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="适用年级">
-        <el-select v-model="form.grade" placeholder="请选择适用年级">
-          <el-option label="2016" value="2016"></el-option>
-          <el-option label="2017" value="2017"></el-option>
-          <el-option label="2018" value="2018"></el-option>
-          <el-option label="2019" value="2019"></el-option>
+      <el-form-item label="版本">
+        <el-select v-model="form.version" placeholder="请选择版本">
+          <el-option label="2015版" value="2015版"></el-option>
+          <el-option label="2017版" value="2017版"></el-option>
+          <el-option label="2019版" value="2019版"></el-option>
+          <el-option label="2020版" value="2020版"></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="适用年级">
+        <el-checkbox-group v-model="form.grade">
+          <el-checkbox label="2016" name="type"></el-checkbox>
+          <el-checkbox label="2017" name="type"></el-checkbox>
+          <el-checkbox label="2018" name="type"></el-checkbox>
+          <el-checkbox label="2019" name="type"></el-checkbox>
+          <el-checkbox label="2020" name="type"></el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
       <el-form-item label="标题一">
         <el-input v-model="form.trainGoal" />
@@ -62,7 +71,8 @@ export default {
     return {
       form: {
         gradeId: '',
-        grade: '',
+        grade: [],
+        version: '',
         trainGoal: '一、专业培养目标和培养要求',
         trainGoalIntroduce: '',
         trainSpecial: '二、专业培养特色',
@@ -80,7 +90,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit() { // 存入时转字符串
       this.gradeIdList.forEach(item => {
         if(item.grade == this.form.grade){
           this.form.gradeId = item.keyId;
